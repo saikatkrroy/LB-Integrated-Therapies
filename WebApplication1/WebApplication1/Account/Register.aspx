@@ -1,39 +1,66 @@
 ﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="WebApplication1.Account.Register" %>
-
-<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
-    <h2><%: Title %>.</h2>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <h2><%: Title %></h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
     </p>
 
     <div class="form-horizontal">
-        <h4>Create a new account</h4>
+        <h4>Register for a Session</h4>
         <hr />
-        <asp:ValidationSummary runat="server" CssClass="text-danger" />
+        <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="Name" CssClass="col-md-2 control-label">Name</asp:Label>
+            <div class="col-md-10">
+                <asp:TextBox runat="server" ID="Name" CssClass="form-control" />
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="Name"
+                    CssClass="text-danger" ErrorMessage="The user name field is required." />
+            </div>
+        </div>
+        <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="ContactNumber" CssClass="col-md-2 control-label">Contact Number</asp:Label>
+            <div class="col-md-10">
+                <asp:TextBox runat="server" ID="ContactNumber" CssClass="form-control" />
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="ContactNumber"
+                    CssClass="text-danger" ErrorMessage="The contact number field is required." />
+            </div>
+        </div>
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Email" CssClass="col-md-2 control-label">Email</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="Email" CssClass="form-control" TextMode="Email" />
+                <asp:TextBox runat="server" ID="Email" CssClass="form-control" />
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
-                    CssClass="text-danger" ErrorMessage="The email field is required." />
+                    CssClass="text-danger" ErrorMessage="The email address field is required." />
             </div>
         </div>
         <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="Password" CssClass="col-md-2 control-label">Password</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="SessionDate" CssClass="col-md-2 control-label">Date</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="Password"
-                    CssClass="text-danger" ErrorMessage="The password field is required." />
+                <asp:Calendar ID="SessionDate" runat="server" OnSelectionChanged="Calendar1_SelectionChanged">
+                    <DayStyle BorderStyle="None" />
+                </asp:Calendar>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
+                    CssClass="text-danger" ErrorMessage="The Session Date field is required." /><br/>
             </div>
         </div>
         <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ConfirmPassword" CssClass="col-md-2 control-label">Confirm password</asp:Label>
+            <asp:Label runat="server" ID="Time" AssociatedControlID="SessionTime" CssClass="col-md-2 control-label">Time</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="ConfirmPassword" TextMode="Password" CssClass="form-control" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="ConfirmPassword"
-                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The confirm password field is required." />
-                <asp:CompareValidator runat="server" ControlToCompare="Password" ControlToValidate="ConfirmPassword"
-                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The password and confirmation password do not match." />
+                <asp:DropDownList ID="SessionTime" runat="server">
+                    <asp:ListItem>7:00</asp:ListItem>
+                    <asp:ListItem>8:00</asp:ListItem>
+                    <asp:ListItem>9:00</asp:ListItem>
+                    <asp:ListItem>10:00</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+        </div>
+        <div class="form-group">
+            <asp:Label runat="server" ID="Label2" AssociatedControlID="Duration" CssClass="col-md-2 control-label">Duration(Minutes)</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList ID="Duration" runat="server">
+                    <asp:ListItem>30</asp:ListItem>
+                    <asp:ListItem>45</asp:ListItem>
+                    <asp:ListItem>60</asp:ListItem>
+                </asp:DropDownList>
             </div>
         </div>
         <div class="form-group">
@@ -42,4 +69,5 @@
             </div>
         </div>
     </div>
+
 </asp:Content>
