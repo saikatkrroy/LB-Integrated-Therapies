@@ -51,6 +51,8 @@
                     <asp:ListItem>9:00</asp:ListItem>
                     <asp:ListItem>10:00</asp:ListItem>
                 </asp:DropDownList>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="SessionTime"
+                    CssClass="text-danger" ErrorMessage="The Session Time field is required." /><br/>
             </div>
         </div>
         <div class="form-group">
@@ -61,6 +63,21 @@
                     <asp:ListItem>45</asp:ListItem>
                     <asp:ListItem>60</asp:ListItem>
                 </asp:DropDownList>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="Duration"
+                    CssClass="text-danger" ErrorMessage="The Duration field is required." /><br/>
+            </div>
+        </div>
+        <div class="form-group">
+            <asp:Label runat="server" ID="Loc" AssociatedControlID="Location" CssClass="col-md-2 control-label">Location</asp:Label>
+            <div class="col-md-10">
+                <asp:DropDownList ID="Location" runat="server">
+                    <asp:ListItem>Dockland</asp:ListItem>
+                    <asp:ListItem>Melbourne CBD</asp:ListItem>
+                    <asp:ListItem>South Yarra</asp:ListItem>
+                    <asp:ListItem>Abbotsford</asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="Location"
+                    CssClass="text-danger" ErrorMessage="The Location field is required." /><br/>
             </div>
         </div>
         <div class="form-group">

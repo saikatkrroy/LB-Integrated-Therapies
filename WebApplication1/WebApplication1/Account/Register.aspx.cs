@@ -13,6 +13,8 @@ namespace WebApplication1.Account
         {
             SessionTime.Visible = false;
             Time.Visible = false;
+            Duration.Visible = false;
+            Location.Visible = false;
         }
 
         protected void CreateUser_Click(object sender, EventArgs e)
@@ -37,6 +39,8 @@ namespace WebApplication1.Account
         {
             SessionTime.Visible = true;
             Time.Visible = true;
+            Duration.Visible = true;
+            Location.Visible = true;
         }
         protected void DayRender(Object source, DayRenderEventArgs e)
         {

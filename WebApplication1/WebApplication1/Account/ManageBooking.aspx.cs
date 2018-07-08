@@ -9,10 +9,11 @@ namespace WebApplication1.Account
 {
     public partial class ManageBooking : System.Web.UI.Page
     {
-        /*DataSetTableAdapters.QueriesTableAdapter qta = new DataSetTableAdapters.QueriesTableAdapter();
+        DataSetTableAdapters.QueriesTableAdapter qta = new DataSetTableAdapters.QueriesTableAdapter();
         DataSetTableAdapters.retrievebookingTableAdapter rta = new DataSetTableAdapters.retrievebookingTableAdapter();
         DataSet.retrievebookingDataTable rdt;
-        Object placeholder;*/
+        
+        Object placeholder;
         protected void Page_Load(object sender, EventArgs e)
         {
             Label1.Visible = false;
@@ -20,7 +21,7 @@ namespace WebApplication1.Account
 
         protected void Search_Click(object sender, EventArgs e)
         {
-            /*rdt = rta.GetData(EmailID.Text);
+            rdt = rta.GetData(EmailID.Text);
             GridView1.DataSource = rdt;
             GridView1.DataBind();
             if (rdt == null)
@@ -32,7 +33,7 @@ namespace WebApplication1.Account
             {
                 Label1.Visible = true;
                 Label1.Text = "data exists";
-            }*/
+            }
         }
     }
 }
