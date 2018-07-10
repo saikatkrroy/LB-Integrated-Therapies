@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -22,7 +23,8 @@ namespace WebApplication1.Account
         protected void Search_Click(object sender, EventArgs e)
         {
             rdt = rta.GetData(EmailID.Text);
-            GridView1.DataSource = rdt;
+            //rta.Fill();
+            GridView1.DataSource= rdt;
             GridView1.DataBind();
             if (rdt == null)
             {
@@ -32,7 +34,14 @@ namespace WebApplication1.Account
             else
             {
                 Label1.Visible = true;
-                Label1.Text = "data exists";
+                foreach (DataRow row in rdt.Rows)
+                {
+                    Console.WriteLine();
+                    for (int x = 0; x < rdt.Columns.Count; x++)
+                    {
+                        Label1.Text = Label1.Text + row[x].ToString() + " ";
+                    }
+                }
             }
         }
     }
