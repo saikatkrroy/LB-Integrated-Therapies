@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,39 +11,90 @@ namespace WebApplication1.Account
 {
     public partial class ManageBooking : System.Web.UI.Page
     {
+        String ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\webdb.mdf;Integrated Security=True;";
         DataSetTableAdapters.QueriesTableAdapter qta = new DataSetTableAdapters.QueriesTableAdapter();
         DataSetTableAdapters.retrievebookingTableAdapter rta = new DataSetTableAdapters.retrievebookingTableAdapter();
         DataSet.retrievebookingDataTable rdt;
-        
-        Object placeholder;
         protected void Page_Load(object sender, EventArgs e)
         {
-            Label1.Visible = false;
+            SqlConnection sqlconnection = new SqlConnection(ConnectionString);
+            sqlconnection.Open();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT b.Name, b.SessionDate, b.Email, s.Time, b.Status from dbo.Booking b inner join dbo.SessionTime s on b.SessionTimeID=s.Id where b.Status='Applied'", sqlconnection);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            GridView2.DataSource = dt;
+            GridView2.DataBind();
+            sqlconnection.Close();
         }
 
         protected void Search_Click(object sender, EventArgs e)
         {
-            rdt = rta.GetData(EmailID.Text);
-            //rta.Fill();
-            GridView1.DataSource= rdt;
+            SqlConnection sqlconnection = new SqlConnection(ConnectionString);
+            sqlconnection.Open();
+            SqlDataAdapter da = new SqlDataAdapter("SELECT b.Name, b.SessionDate,s.Time from dbo.Booking b inner join dbo.SessionTime s on b.SessionTimeID=s.Id where b.Email='" + EmailID.Text.ToString() + "'", sqlconnection);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            GridView1.DataSource = dt;
             GridView1.DataBind();
-            if (rdt == null)
-            {
-                Label1.Visible = true;
-                Label1.Text = "No data found";
-            }
-            else
-            {
-                Label1.Visible = true;
-                foreach (DataRow row in rdt.Rows)
-                {
-                    Console.WriteLine();
-                    for (int x = 0; x < rdt.Columns.Count; x++)
-                    {
-                        Label1.Text = Label1.Text + row[x].ToString() + " ";
-                    }
-                }
-            }
+            sqlconnection.Close();
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void GridView1_RowUpdating(Object sender, GridViewUpdateEventArgs e)
+        {
+        }
+        protected void GridView1_RowDeleting(Object sender, GridViewDeleteEventArgs e)
+        {
+        }
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+        }
+        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+        protected void GridView2_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            DataSetTableAdapters.QueriesTableAdapter qta = new DataSetTableAdapters.QueriesTableAdapter();
+            GridView1.EditIndex = e.NewEditIndex;
+            DataTable dt = (DataTable)Session["TaskTable"];
+            GridViewRow row = GridView1.Rows[e.NewEditIndex];
+            dt.Rows[row.DataItemIndex]["Name"] = ((TextBox)(row.Cells[1].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["SessionDate"] = ((TextBox)(row.Cells[2].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["Email"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["Time"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["Status"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
+            GridView1.EditIndex = -1;
+
+            //Bind data to the GridView control.
+            GridView1.DataBind();
+
+        }
+        protected void GridView2_RowDeleting(Object sender, GridViewDeleteEventArgs e)
+        {
+            DataSet dataset = new DataSet();
+            DataSetTableAdapters.QueriesTableAdapter qta = new DataSetTableAdapters.QueriesTableAdapter();
+            //qta.deletebooking();
+        }
+        protected void GridView2_RowUpdating(Object sender, GridViewUpdateEventArgs e)
+        {
+            DataTable dt = (DataTable)Session["TaskTable"];
+
+            //Update the values.
+            GridViewRow row = GridView1.Rows[e.RowIndex];
+            dt.Rows[row.DataItemIndex]["Name"] = ((TextBox)(row.Cells[1].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["SessionDate"] = ((TextBox)(row.Cells[2].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["Email"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["Time"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["Status"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
+
+            //Reset the edit index.
+            GridView1.EditIndex = -1;
+
+            //Bind data to the GridView control.
+            GridView1.DataBind();
         }
     }
 }
