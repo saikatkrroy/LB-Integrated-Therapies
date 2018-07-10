@@ -19,7 +19,7 @@ namespace WebApplication1.Account
         {
             SqlConnection sqlconnection = new SqlConnection(ConnectionString);
             sqlconnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT b.Name, b.SessionDate, b.Email, s.Time, b.Status from dbo.Booking b inner join dbo.SessionTime s on b.SessionTimeID=s.Id where b.Status='Applied'", sqlconnection);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT b.Name, b.SessionDate, b.Email, s.Time, b.Status from dbo.Booking b inner join dbo.SessionTime s on b.SessionTimeID=s.Id where b.Status='Requested'", sqlconnection);
             DataTable dt = new DataTable();
             da.Fill(dt);
             GridView2.DataSource = dt;
