@@ -65,7 +65,7 @@ namespace WebApplication1.Account
             dt.Rows[row.DataItemIndex]["SessionDate"] = ((TextBox)(row.Cells[2].Controls[0])).Text;
             dt.Rows[row.DataItemIndex]["Email"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
             dt.Rows[row.DataItemIndex]["Time"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
-            dt.Rows[row.DataItemIndex]["Status"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
+            dt.Rows[row.DataItemIndex]["Status"] = ((DropDownList)(row.Cells[3].Controls[0])).SelectedIndex;
             GridView1.EditIndex = -1;
 
             //Bind data to the GridView control.

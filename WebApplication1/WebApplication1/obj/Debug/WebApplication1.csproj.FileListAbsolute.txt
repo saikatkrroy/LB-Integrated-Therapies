@@ -77,3 +77,6 @@ E:\Luciana\LB-Integrated-Therapies\WebApplication1\WebApplication1\bin\Microsoft
 E:\Luciana\LB-Integrated-Therapies\WebApplication1\WebApplication1\bin\Microsoft.Owin.Security.OAuth.xml
 E:\Luciana\LB-Integrated-Therapies\WebApplication1\WebApplication1\obj\Debug\WebApplication1.dll
 E:\Luciana\LB-Integrated-Therapies\WebApplication1\WebApplication1\obj\Debug\WebApplication1.pdb
+E:\Luciana\LB-Integrated-Therapies\WebApplication1\WebApplication1\bin\MYOB.AccountRight.SDK.dll
+E:\Luciana\LB-Integrated-Therapies\WebApplication1\WebApplication1\bin\MYOB.AccountRight.SDK.pdb
+E:\Luciana\LB-Integrated-Therapies\WebApplication1\WebApplication1\bin\MYOB.AccountRight.SDK.xml

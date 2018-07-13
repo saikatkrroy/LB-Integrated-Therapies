@@ -45,7 +45,7 @@
         <div class="form-group">
             <asp:Label runat="server" ID="Time" AssociatedControlID="SessionTime" CssClass="col-md-2 control-label">Time</asp:Label>
             <div class="col-md-10">
-                <asp:DropDownList ID="SessionTime" runat="server">
+                <asp:DropDownList ID="SessionTime" runat="server" OnSelectedIndexChanged="SessionTime_SelectedIndexChanged">
                     <asp:ListItem>7:00</asp:ListItem>
                     <asp:ListItem>8:00</asp:ListItem>
                     <asp:ListItem>9:00</asp:ListItem>
