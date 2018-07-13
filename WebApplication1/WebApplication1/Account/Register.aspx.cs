@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -55,9 +56,16 @@ namespace WebApplication1.Account
         }
 
         protected void SessionTime_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {;
             sqlconnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT l.LocationName, s.StartTime,s.EndTime, l.DayofWeek  from dbo.Location l inner join dbo.Schedule s on l.ID=s.LocationId where l.DayofWeek='" + SessionDate.SelectedDate.DayOfWeek.ToString() + "'", sqlconnection);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT l.LocationName, s.StartTime,s.EndTime, l.DayofWeek  from dbo.Location l inner join dbo.Schedule s on l.ID=s.LocationId where l.DayofWeek='" + SessionDate.SelectedDate.DayOfWeek.ToString() + "' AND"+ Convert.ToInt32(SessionTime.SelectedValue)+">= l.StartTime AND "+Convert.ToInt32(SessionTime.SelectedValue)+"<=l.EndTime;", sqlconnection);
+            DataTable datatable = new DataTable();
+            da.Fill(datatable);
+            int[] sessiontime=new int[datatable.Rows.Count];
+            for(int i = 0; i < datatable.Rows.Count; i++)
+            {
+                sessiontime[i] = Convert.ToInt32(datatable.Rows[i]["Location"]);
+            }
             sqlconnection.Close();
             switch (SessionDate.SelectedDate.DayOfWeek.ToString())
             {
