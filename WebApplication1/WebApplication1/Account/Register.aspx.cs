@@ -12,7 +12,6 @@ namespace WebApplication1.Account
     public partial class Register : System.Web.UI.Page
     {
         String ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\webdb.mdf;Integrated Security=True;";
-        SqlConnection sqlconnection = new SqlConnection(ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionTime.Visible = false;
@@ -56,46 +55,90 @@ namespace WebApplication1.Account
         }
 
         protected void SessionTime_SelectedIndexChanged(object sender, EventArgs e)
-        {;
+        {
+            SqlConnection sqlconnection = new SqlConnection(ConnectionString);
             sqlconnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT l.LocationName, s.StartTime,s.EndTime, l.DayofWeek  from dbo.Location l inner join dbo.Schedule s on l.ID=s.LocationId where l.DayofWeek='" + SessionDate.SelectedDate.DayOfWeek.ToString() + "' AND"+ Convert.ToInt32(SessionTime.SelectedValue)+">= l.StartTime AND "+Convert.ToInt32(SessionTime.SelectedValue)+"<=l.EndTime;", sqlconnection);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT l.LocationName, s.StartTime,s.EndTime, l.DayofWeek  from dbo.Location l inner join dbo.Schedule s on l.ID=s.LocationId where l.DayofWeek='" + SessionDate.SelectedDate.DayOfWeek.ToString() + "';", sqlconnection);
             DataTable datatable = new DataTable();
-            da.Fill(datatable);
-            int[] sessiontime=new int[datatable.Rows.Count];
-            for(int i = 0; i < datatable.Rows.Count; i++)
-            {
-                sessiontime[i] = Convert.ToInt32(datatable.Rows[i]["Location"]);
-            }
+            da.Fill(datatable);          
             sqlconnection.Close();
             switch (SessionDate.SelectedDate.DayOfWeek.ToString())
             {
                 case "Monday":
                     {
-                        if(Convert.ToInt32(SessionTime.SelectedValue)<)
-                        break;
+                        for (int i = 0; i < datatable.Rows.Count; i++)
+                        {
+                            if ((Convert.ToInt32(SessionTime.SelectedValue) < Convert.ToInt32(datatable.Rows[i]["EndTime"])) && (Convert.ToInt32(SessionTime.SelectedValue)> Convert.ToInt32(datatable.Rows[i]["StartTime"])))
+                            {
+                                Location.Items.Add(datatable.Rows[i]["Location"].ToString());
+                            }
+                        }
+                                break;
                     }
                 case "Tuesday":
                     {
+                        for (int i = 0; i < datatable.Rows.Count; i++)
+                        {
+                            if ((Convert.ToInt32(SessionTime.SelectedValue) < Convert.ToInt32(datatable.Rows[i]["EndTime"])) && (Convert.ToInt32(SessionTime.SelectedValue) > Convert.ToInt32(datatable.Rows[i]["StartTime"])))
+                            {
+                                Location.Items.Add(datatable.Rows[i]["Location"].ToString());
+                            }
+                        }
                         break;
                     }
                 case "Wednesday":
                     {
+                        for (int i = 0; i < datatable.Rows.Count; i++)
+                        {
+                            if ((Convert.ToInt32(SessionTime.SelectedValue) < Convert.ToInt32(datatable.Rows[i]["EndTime"])) && (Convert.ToInt32(SessionTime.SelectedValue) > Convert.ToInt32(datatable.Rows[i]["StartTime"])))
+                            {
+                                Location.Items.Add(datatable.Rows[i]["Location"].ToString());
+                            }
+                        }
                         break;
                     }
                 case "Thursday":
                     {
+                        for (int i = 0; i < datatable.Rows.Count; i++)
+                        {
+                            if ((Convert.ToInt32(SessionTime.SelectedValue) < Convert.ToInt32(datatable.Rows[i]["EndTime"])) && (Convert.ToInt32(SessionTime.SelectedValue) > Convert.ToInt32(datatable.Rows[i]["StartTime"])))
+                            {
+                                Location.Items.Add(datatable.Rows[i]["Location"].ToString());
+                            }
+                        }
                         break;
                     }
                 case "Friday":
                     {
+                        for (int i = 0; i < datatable.Rows.Count; i++)
+                        {
+                            if ((Convert.ToInt32(SessionTime.SelectedValue) < Convert.ToInt32(datatable.Rows[i]["EndTime"])) && (Convert.ToInt32(SessionTime.SelectedValue) > Convert.ToInt32(datatable.Rows[i]["StartTime"])))
+                            {
+                                Location.Items.Add(datatable.Rows[i]["Location"].ToString());
+                            }
+                        }
                         break;
                     }
                 case "Saturday":
                     {
+                        for (int i = 0; i < datatable.Rows.Count; i++)
+                        {
+                            if ((Convert.ToInt32(SessionTime.SelectedValue) < Convert.ToInt32(datatable.Rows[i]["EndTime"])) && (Convert.ToInt32(SessionTime.SelectedValue) > Convert.ToInt32(datatable.Rows[i]["StartTime"])))
+                            {
+                                Location.Items.Add(datatable.Rows[i]["Location"].ToString());
+                            }
+                        }
                         break;
                     }
                 case "Sunday":
                     {
+                        for (int i = 0; i < datatable.Rows.Count; i++)
+                        {
+                            if ((Convert.ToInt32(SessionTime.SelectedValue) < Convert.ToInt32(datatable.Rows[i]["EndTime"])) && (Convert.ToInt32(SessionTime.SelectedValue) > Convert.ToInt32(datatable.Rows[i]["StartTime"])))
+                            {
+                                Location.Items.Add(datatable.Rows[i]["Location"].ToString());
+                            }
+                        }
                         break;
                     }
                 default:

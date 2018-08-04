@@ -6,6 +6,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using MYOB.AccountRight.SDK.Contracts.Version2;
+using MYOB.AccountRight.SDK.Contracts.Version2.Contact;
+using MYOB.AccountRight.SDK.Contracts.Version2.GeneralLedger;
+using MYOB.AccountRight.SDK.Contracts.Version2.Sale;
+using MYOB.AccountRight.SDK.Services.Contact;
+using MYOB.AccountRight.SDK.Services.GeneralLedger;
+using MYOB.AccountRight.SDK.Services.Sale;
+using MYOB.AccountRight.SDK;
 
 namespace WebApplication1.Account
 {
@@ -19,12 +27,13 @@ namespace WebApplication1.Account
         {
             SqlConnection sqlconnection = new SqlConnection(ConnectionString);
             sqlconnection.Open();
-            SqlDataAdapter da = new SqlDataAdapter("SELECT b.Name, b.SessionDate, b.Email, s.Time, b.Status from dbo.Booking b inner join dbo.SessionTime s on b.SessionTimeID=s.Id where b.Status='Requested'", sqlconnection);
+            SqlDataAdapter da = new SqlDataAdapter("SELECT b.Name, b.SessionDate, b.Email, s.Time, st.Status from dbo.Booking b inner join dbo.SessionTime s inner join dbo.Status st on b.SessionTimeID=s.Id and st.Id=b.Status where st.Status='Requested'", sqlconnection);
             DataTable dt = new DataTable();
             da.Fill(dt);
             GridView2.DataSource = dt;
             GridView2.DataBind();
             sqlconnection.Close();
+            
         }
 
         protected void Search_Click(object sender, EventArgs e)
