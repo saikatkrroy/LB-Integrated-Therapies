@@ -31,7 +31,6 @@ namespace MYOBApi.CSharp.Helpers
         private const string CsOAuthServer = "https://secure.myob.com/oauth2/account/authorize/";
 
         private const string CsOAuthScope = "CompanyFile";
-        private static ICompanyFileCredentials credentials;
 
         /// <summary>
         /// Function to return the OAuth code

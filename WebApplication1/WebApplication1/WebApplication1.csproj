@@ -212,9 +212,13 @@
       <DependentUpon>webdb.mdf</DependentUpon>
     </Content>
     <Content Include="Contact.aspx" />
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\magnific-popup.css" />
+    <Content Include="Content\owl.carousel.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\style.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -226,6 +230,7 @@
     <Content Include="DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="DataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -234,14 +239,23 @@
     <Content Include="DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="fonts\.DS_Store" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="fonts\ionicons.min.css" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery.magnific-popup.min.js" />
+    <Content Include="Scripts\jquery.waypoints.min.js" />
+    <Content Include="Scripts\magnific-popup-options.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\owl.carousel.min.js" />
+    <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
@@ -277,6 +291,81 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Site.Mobile.Master" />
+    <Content Include="scss\bootstrap-grid.scss" />
+    <Content Include="scss\bootstrap-reboot.scss" />
+    <Content Include="scss\bootstrap.scss" />
+    <Content Include="scss\style.scss" />
+    <Content Include="scss\_alert.scss" />
+    <Content Include="scss\_align.scss" />
+    <Content Include="scss\_background-variant.scss" />
+    <Content Include="scss\_background.scss" />
+    <Content Include="scss\_badge.scss" />
+    <Content Include="scss\_border-radius.scss" />
+    <Content Include="scss\_borders.scss" />
+    <Content Include="scss\_box-shadow.scss" />
+    <Content Include="scss\_breadcrumb.scss" />
+    <Content Include="scss\_breakpoints.scss" />
+    <Content Include="scss\_button-group.scss" />
+    <Content Include="scss\_buttons.scss" />
+    <Content Include="scss\_card.scss" />
+    <Content Include="scss\_caret.scss" />
+    <Content Include="scss\_carousel.scss" />
+    <Content Include="scss\_clearfix.scss" />
+    <Content Include="scss\_close.scss" />
+    <Content Include="scss\_code.scss" />
+    <Content Include="scss\_custom-forms.scss" />
+    <Content Include="scss\_custom.scss" />
+    <Content Include="scss\_display.scss" />
+    <Content Include="scss\_dropdown.scss" />
+    <Content Include="scss\_embed.scss" />
+    <Content Include="scss\_flex.scss" />
+    <Content Include="scss\_float.scss" />
+    <Content Include="scss\_forms.scss" />
+    <Content Include="scss\_functions.scss" />
+    <Content Include="scss\_gradients.scss" />
+    <Content Include="scss\_grid-framework.scss" />
+    <Content Include="scss\_grid.scss" />
+    <Content Include="scss\_hover.scss" />
+    <Content Include="scss\_image.scss" />
+    <Content Include="scss\_images.scss" />
+    <Content Include="scss\_input-group.scss" />
+    <Content Include="scss\_jumbotron.scss" />
+    <Content Include="scss\_list-group.scss" />
+    <Content Include="scss\_lists.scss" />
+    <Content Include="scss\_media.scss" />
+    <Content Include="scss\_mixins.scss" />
+    <Content Include="scss\_modal.scss" />
+    <Content Include="scss\_nav-divider.scss" />
+    <Content Include="scss\_nav.scss" />
+    <Content Include="scss\_navbar-align.scss" />
+    <Content Include="scss\_navbar.scss" />
+    <Content Include="scss\_pagination.scss" />
+    <Content Include="scss\_popover.scss" />
+    <Content Include="scss\_position.scss" />
+    <Content Include="scss\_print.scss" />
+    <Content Include="scss\_progress.scss" />
+    <Content Include="scss\_reboot.scss" />
+    <Content Include="scss\_reset-text.scss" />
+    <Content Include="scss\_resize.scss" />
+    <Content Include="scss\_root.scss" />
+    <Content Include="scss\_screen-reader.scss" />
+    <Content Include="scss\_screenreaders.scss" />
+    <Content Include="scss\_size.scss" />
+    <Content Include="scss\_sizing.scss" />
+    <Content Include="scss\_spacing.scss" />
+    <Content Include="scss\_table-row.scss" />
+    <Content Include="scss\_tables.scss" />
+    <Content Include="scss\_text-emphasis.scss" />
+    <Content Include="scss\_text-hide.scss" />
+    <Content Include="scss\_text-truncate.scss" />
+    <Content Include="scss\_text.scss" />
+    <Content Include="scss\_tooltip.scss" />
+    <Content Include="scss\_transition.scss" />
+    <Content Include="scss\_transitions.scss" />
+    <Content Include="scss\_type.scss" />
+    <Content Include="scss\_utilities.scss" />
+    <Content Include="scss\_variables.scss" />
+    <Content Include="scss\_visibility.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

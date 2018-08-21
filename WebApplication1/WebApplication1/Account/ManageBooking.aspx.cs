@@ -23,6 +23,114 @@ namespace WebApplication1.Account
         DataSetTableAdapters.QueriesTableAdapter qta = new DataSetTableAdapters.QueriesTableAdapter();
         DataSetTableAdapters.retrievebookingTableAdapter rta = new DataSetTableAdapters.retrievebookingTableAdapter();
         DataSet.retrievebookingDataTable rdt;
+        private Invoice _invoice;
+        private int _prereqCount;
+        IApiConfiguration config;
+        private const string CsOAuthScope = "CompanyFile";
+        private const string CsOAuthServer = "https://secure.myob.com/oauth2/account/authorize/";
+        string url = string.Format("{0}?client_id={1}&redirect_uri={2}&scope={3}&response_type=code", CsOAuthServer,
+                                       "saikatkrroy@gmail.com", HttpUtility.UrlEncode(config.RedirectUrl), CsOAuthScope);
+        public void Show(Invoice invoice)
+        {
+            _invoice = invoice;
+            Show();
+        }
+
+        private void DoBind()
+        {
+            _prereqCount += 1;
+            if (_prereqCount == 4)
+            {
+                BindInvoice();
+                HideSpinner();
+            }
+        }
+
+
+        private void BindInvoice()
+        {
+            if ((_invoice != null))
+            {
+                var serviceInvoiceSvc = new ServiceInvoiceService(MyConfiguration,
+                                                                  null,
+                                                                  MyOAuthKeyService);
+                ServiceInvoice serviceInvoice = serviceInvoiceSvc.Get(MyCompanyFile, _invoice.UID, MyCredentials);
+
+                //Set the default value
+                var customers =
+                    CmboCustomer.DataSource as PagedCollection<Customer>;
+
+                if (customers != null)
+                {
+                    for (int i = 0; i <= customers.Count; i++)
+                    {
+                        Customer customer = customers.Items[i];
+                        if (customer.UID == serviceInvoice.Customer.UID)
+                        {
+                            CmboCustomer.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+                BsServiceInvoice.DataSource = serviceInvoice;
+                GrdServiceLines.DataSource = FlattenLines(serviceInvoice.Lines);
+            }
+        }
+        private void createinvoice()
+        {
+            var serviceInvoiceSvc = new ServiceInvoiceService(MyConfiguration, null,
+                                                              MyOAuthKeyService);
+            var serviceInvoice = new ServiceInvoice();
+
+            if ((_invoice == null))
+            {
+                var customerLnk = new CustomerLink { UID = (Guid)CmboCustomer.SelectedValue };
+                serviceInvoice.Customer = customerLnk;
+                serviceInvoice.ShipToAddress = TxtAddress.Text;
+                serviceInvoice.Number = TxtInvoiceNo.Text;
+                serviceInvoice.Date = DtDate.Value;
+                serviceInvoice.IsTaxInclusive = ChkTaxInclusive.Checked;
+
+                var lines = new List<ServiceInvoiceLine>();
+
+                foreach (DataGridViewRow row in GrdServiceLines.Rows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        var line = new ServiceInvoiceLine
+                        {
+                            Type = InvoiceLineType.Transaction,
+                            Description = (string)row.Cells["ColDescription"].Value,
+                            Total = Convert.ToDecimal(row.Cells["ColAmount"].Value)
+                        };
+
+                        if ((row.Cells["ColAccount"].Value == null))
+                        {
+                            MessageBox.Show("you must select an account on each row");
+                            return;
+                        }
+                        var accountlnk = new AccountLink { UID = (Guid)row.Cells["ColAccount"].Value };
+                        line.Account = accountlnk;
+
+                        if ((row.Cells["ColTax"].Value == null))
+                        {
+                            MessageBox.Show("you must select a taxcode on each row");
+                            return;
+                        }
+                        var taxcodelnk = new TaxCodeLink { UID = (Guid)row.Cells["ColTax"].Value };
+                        line.TaxCode = taxcodelnk;
+
+                        if ((row.Cells["ColJob"].Value != null))
+                        {
+                            var joblnk = new JobLink { UID = (Guid)row.Cells["ColJob"].Value };
+                            line.Job = joblnk;
+                        }
+
+                        lines.Add(line);
+                    }
+                }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SqlConnection sqlconnection = new SqlConnection(ConnectionString);
