@@ -49,7 +49,7 @@ namespace WebApplication1
         // Used for XSRF when linking external logins
         public const string XsrfKey = "XsrfId";
 
-        public const string ProviderNameKey = "providerName";
+        public const string ProviderNameKey = "vq9cbsyf4g5r323szcx3kcxa";
         public static string GetProviderNameFromRequest(HttpRequest request)
         {
             return request.QueryString[ProviderNameKey];

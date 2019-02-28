@@ -14,6 +14,7 @@ using MYOB.AccountRight.SDK.Services.Contact;
 using MYOB.AccountRight.SDK.Services.GeneralLedger;
 using MYOB.AccountRight.SDK.Services.Sale;
 using MYOB.AccountRight.SDK;
+using System.Configuration;
 
 namespace WebApplication1.Account
 {
@@ -33,7 +34,7 @@ namespace WebApplication1.Account
         public void Show(Invoice invoice)
         {
             _invoice = invoice;
-            Show();
+           
         }
 
         private void DoBind()
@@ -42,7 +43,7 @@ namespace WebApplication1.Account
             if (_prereqCount == 4)
             {
                 BindInvoice();
-                HideSpinner();
+                
             }
         }
 
@@ -51,7 +52,7 @@ namespace WebApplication1.Account
         {
             if ((_invoice != null))
             {
-                var serviceInvoiceSvc = new ServiceInvoiceService(MyConfiguration,
+                var serviceInvoiceSvc = new ServiceInvoiceService(Configuration,
                                                                   null,
                                                                   MyOAuthKeyService);
                 ServiceInvoice serviceInvoice = serviceInvoiceSvc.Get(MyCompanyFile, _invoice.UID, MyCredentials);
@@ -72,13 +73,13 @@ namespace WebApplication1.Account
                         }
                     }
                 }
-                BsServiceInvoice.DataSource = serviceInvoice;
-                GrdServiceLines.DataSource = FlattenLines(serviceInvoice.Lines);
+                //BsServiceInvoice.DataSource = serviceInvoice;
+                //GrdServiceLines.DataSource = FlattenLines(serviceInvoice.Lines);
             }
         }
         private void createinvoice()
         {
-            var serviceInvoiceSvc = new ServiceInvoiceService(MyConfiguration, null,
+            var serviceInvoiceSvc = new ServiceInvoiceService(configuration, null,
                                                               MyOAuthKeyService);
             var serviceInvoice = new ServiceInvoice();
 
@@ -86,14 +87,12 @@ namespace WebApplication1.Account
             {
                 var customerLnk = new CustomerLink { UID = (Guid)CmboCustomer.SelectedValue };
                 serviceInvoice.Customer = customerLnk;
-                serviceInvoice.ShipToAddress = TxtAddress.Text;
-                serviceInvoice.Number = TxtInvoiceNo.Text;
-                serviceInvoice.Date = DtDate.Value;
+                serviceInvoice.Date = DateTime.Parse;
                 serviceInvoice.IsTaxInclusive = ChkTaxInclusive.Checked;
 
                 var lines = new List<ServiceInvoiceLine>();
 
-                foreach (DataGridViewRow row in GrdServiceLines.Rows)
+                foreach (GridView1 row in GrdServiceLines.Rows)
                 {
                     if (!row.IsNewRow)
                     {
@@ -129,6 +128,8 @@ namespace WebApplication1.Account
                         lines.Add(line);
                     }
                 }
+            }
+        }
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -162,16 +163,21 @@ namespace WebApplication1.Account
         }
         protected void GridView1_RowUpdating(Object sender, GridViewUpdateEventArgs e)
         {
+            
         }
         protected void GridView1_RowDeleting(Object sender, GridViewDeleteEventArgs e)
         {
+            GridView1.DeleteRow(e.RowIndex);
+            var time = (HiddenField)GridView1.Rows[e.RowIndex].FindControl("Time");
+            var date = (HiddenField)GridView1.Rows[e.RowIndex].FindControl("Session Date");
+            string delete_command = "DELETE FROM Booking WHERE SessionTime=" + time + " and SessionDate=" + date;
+            GridView1.DataBind();
         }
         protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
+            GridView1.EditIndex = e.NewEditIndex;
         }
-        protected void GridView2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
+        
         protected void GridView2_RowEditing(object sender, GridViewEditEventArgs e)
         {
             DataSetTableAdapters.QueriesTableAdapter qta = new DataSetTableAdapters.QueriesTableAdapter();
@@ -183,16 +189,22 @@ namespace WebApplication1.Account
             dt.Rows[row.DataItemIndex]["Email"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
             dt.Rows[row.DataItemIndex]["Time"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
             dt.Rows[row.DataItemIndex]["Status"] = ((DropDownList)(row.Cells[3].Controls[0])).SelectedIndex;
-            GridView1.EditIndex = -1;
+            GridView2.EditIndex = -1;
 
             //Bind data to the GridView control.
-            GridView1.DataBind();
+            GridView2.DataBind();
 
         }
         protected void GridView2_RowDeleting(Object sender, GridViewDeleteEventArgs e)
         {
             DataSet dataset = new DataSet();
             DataSetTableAdapters.QueriesTableAdapter qta = new DataSetTableAdapters.QueriesTableAdapter();
+            GridView2.DeleteRow(e.RowIndex);
+            var time = (HiddenField)GridView2.Rows[e.RowIndex].FindControl("Time");
+            var date = (HiddenField)GridView2.Rows[e.RowIndex].FindControl("Session Date");
+            var name = (HiddenField)GridView2.Rows[e.RowIndex].FindControl("Name");
+            string delete_command = "DELETE FROM Booking WHERE SessionTime=" + time + " and SessionDate=" + date +"and name=" + name;
+            GridView2.DataBind();
             //qta.deletebooking();
         }
         protected void GridView2_RowUpdating(Object sender, GridViewUpdateEventArgs e)
@@ -208,10 +220,10 @@ namespace WebApplication1.Account
             dt.Rows[row.DataItemIndex]["Status"] = ((TextBox)(row.Cells[3].Controls[0])).Text;
 
             //Reset the edit index.
-            GridView1.EditIndex = -1;
+            GridView2.EditIndex = -1;
 
             //Bind data to the GridView control.
-            GridView1.DataBind();
+            GridView2.DataBind();
         }
     }
 }
